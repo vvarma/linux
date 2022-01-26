@@ -3357,6 +3357,13 @@ static void serial8250_console_fifo_write(struct uart_8250_port *up,
 				serial_out(up, UART_TX, *s++);
 				cr_sent = false;
 			}
+			/*
+			 * The BCM2835 MINI UART THRE bit is really a not-full
+			 * bit, so be prepared to bail out early.
+			 */
+			if ((up->capabilities & UART_CAP_MINI) &&
+			    !(serial_in(up, UART_LSR) & UART_LSR_THRE))
+				break;
 		}
 	}
 }
