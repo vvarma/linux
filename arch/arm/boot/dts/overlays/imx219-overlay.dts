@@ -3,8 +3,6 @@
 /dts-v1/;
 /plugin/;
 
-#include <dt-bindings/gpio/gpio.h>
-
 /{
 	compatible = "brcm,bcm2835";
 
@@ -75,6 +73,7 @@
 		       <&cam_node>, "clocks:0=",<&cam0_clk>,
 		       <&cam_node>, "VANA-supply:0=",<&cam0_reg>,
 		       <&vcm>, "VANA-supply:0=", <&cam0_reg>;
+		i2c0 = <&i2c_frag>, "target:0=",<&i2c_vc>;
 		vcm = <&vcm>, "status=okay",
 		      <&cam_node>,"lens-focus:0=", <&vcm>;
 	};
